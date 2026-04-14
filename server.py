@@ -38,6 +38,12 @@ class MyHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
 
-server = HTTPServer(("localhost", 8000), MyHandler)
-print("Server running at http://localhost:8000")
-server.serve_forever()
+def run_server():
+    server = HTTPServer(("localhost", 8000), MyHandler)
+    print("Server running at http://localhost:8000")
+    server.serve_forever()
+
+
+# 👇 IMPORTANT CHANGE
+if __name__ == "__main__":
+    run_server()
