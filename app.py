@@ -34,7 +34,6 @@ def run_server():
     server = HTTPServer(("localhost", 8000), MyHandler)
     print("Server started")
 
-    # Run only for 5 seconds (important for CI)
     def stop_server():
         time.sleep(5)
         server.shutdown()
@@ -44,7 +43,7 @@ def run_server():
 
 
 def test_server():
-    time.sleep(1)  # wait for server start
+    time.sleep(1)
     try:
         res = requests.get("http://localhost:8000")
         print("Test Status Code:", res.status_code)
@@ -55,4 +54,3 @@ def test_server():
 if __name__ == "__main__":
     run_server()
     test_server()
-    
