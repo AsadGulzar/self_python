@@ -7,7 +7,8 @@ import requests
 
 class MyHandler(BaseHTTPRequestHandler):
 
-    def do_GET(self):
+
+   def do_GET(self):
         if self.path == "/":
             self.send_response(200)
             self.send_header("Content-type", "text/html")
@@ -34,6 +35,7 @@ def run_server():
     server = HTTPServer(("localhost", 8000), MyHandler)
     print("Server started")
     # Run only for 5 seconds (important for CI)
+
     def stop_server():
         time.sleep(5)
         server.shutdown()
@@ -52,5 +54,6 @@ def test_server():
 
 
 if __name__ == "__main__":
+    
     run_server()
     test_server()
