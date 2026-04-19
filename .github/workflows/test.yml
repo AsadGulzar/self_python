@@ -1,0 +1,24 @@
+name: Testing
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  test:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: pip install pytest flake8
+
+      - name: Run tests
+        run: pytest
+
+      - name: Lint code
+        run: flake8 .
