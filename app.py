@@ -4,6 +4,7 @@ import threading
 import time
 import requests
 
+
 class MyHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
@@ -32,7 +33,6 @@ class MyHandler(BaseHTTPRequestHandler):
 def run_server():
     server = HTTPServer(("localhost", 8000), MyHandler)
     print("Server started")
-    
     # Run only for 5 seconds (important for CI)
     def stop_server():
         time.sleep(5)
