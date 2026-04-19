@@ -18,5 +18,11 @@ jobs:
     - name: Install dependencies
       run: pip install requests
 
+    - name: Install pytest
+      run: pip install pytest
+
+    - name: Run Tests
+      run: pytest
+
     - name: Run Python App
       run: python app.py
