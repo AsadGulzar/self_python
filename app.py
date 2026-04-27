@@ -1,8 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse
-import threading
-import time
-import requests
 
 
 class MyHandler(BaseHTTPRequestHandler):
@@ -30,27 +27,6 @@ class MyHandler(BaseHTTPRequestHandler):
             self.wfile.write(response.encode())
 
 
-def run_server():
-    server = HTTPServer(("localhost", 8000), MyHandler)
-    print("Server started")
-
-    def stop_server():
-        time.sleep(5)
-        server.shutdown()
-
-    threading.Thread(target=stop_server).start()
-    server.serve_forever()
-
-
-def test_server():
-    time.sleep(1)
-    try:
-        res = requests.get("http://localhost:8000")
-        print("Test Status Code:", res.status_code)
-    except Exception as e:
-        print("Error:", e)
-
-
-if __name__ == "__main__":
-    run_server()
-    test_server()
+server = HTTPServer(("0.0.0.0", 8000), MyHandler)
+print("Server running on port 8000 🚀")
+server.serve_forever()
