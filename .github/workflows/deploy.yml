@@ -23,3 +23,5 @@ jobs:
           git reset --hard origin/main
           pgrep -f app.py && pkill -f app.py || echo "No process running"
           nohup python3 app.py > output.log 2>&1 &
+
+          exit 0
