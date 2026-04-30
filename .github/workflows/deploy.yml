@@ -2,24 +2,24 @@ name: Auto Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy to EC2 via SSH
-      uses: appleboy/ssh-action@v1.0.0
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
 
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/self_python
+            git fetch origin
+            git reset --hard origin/main
 
-        script: |
-          cd ~/self_python
-          git fetch origin
-          git reset --hard origin/main
-          pkill -f app.py || true
-          nohup python3 app.py > output.log 2>&1 &
+            sudo systemctl restart myapp
